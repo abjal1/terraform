@@ -95,3 +95,28 @@ resource "aws_nat_gateway" "nat-gateway" {
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.igw]
 }
+
+resource "aws_security_group" "eks-controlplane-sg" {
+  name        = "eks-controlplane-sg"
+  description = "Allow https traffic"
+  vpc_id      = aws_vpc.eks-vpc.id
+
+  ingress {
+    description      = "Allow https traffic"
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "eks-controlplane-sg"
+  }
+}
