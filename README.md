@@ -19,13 +19,13 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 # To deploy nginx ingress controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
 
-#To get metrics of node
+# To get metrics of node
 kubectl top node ip-10-0-3-16.ec2.internal
 
-#Deploy pod and expose using service type load balancer
+# Deploy pod and expose using service type load balancer
 kubectl run --image=nginx nginx
 kubectl expose pod nginx --port=80 --target-port=80 --type=loadBalancer
 
-#To check the issue
+# To check the issue
 kubectl describe pod pod-name
 kubectl describe node node-name
