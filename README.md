@@ -12,3 +12,20 @@ error: error: exec plugin: invalid apiVersion "client.authentication.k8s.io/v1al
 
 fix: curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl && sudo mv ./kubectl /usr/local/bin/kubectl
      chmod 777 /usr/local/bin/kubectl 
+
+# To deploy metrics server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+# To deploy nginx ingress controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
+
+#To get metrics of node
+kubectl top node ip-10-0-3-16.ec2.internal
+
+#Deploy pod and expose using service type load balancer
+kubectl run --image=nginx nginx
+kubectl expose pod nginx --port=80 --target-port=80 --type=loadBalancer
+
+#To check the issue
+kubectl describe pod pod-name
+kubectl describe node node-name
